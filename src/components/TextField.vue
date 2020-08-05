@@ -6,14 +6,17 @@
     <p class="control" :class="{ 'has-icons-left': icon }">
       <input
         class="input"
+        :class="{ 'is-danger': error }"
         :type="type"
         :placeholder="placeholder"
         :value="value"
+        @change="onChanged"
         @input="input"
       />
       <!-- アイコンが指定されたときだけ表示します -->
       <pm-icon v-if="icon" class="is-small is-left" :name="icon"></pm-icon>
     </p>
+    <p class="help is-danger" v-if="error">{{ error }}</p>
   </div>
 </template>
 
@@ -34,14 +37,19 @@
       },
       placeholder: String,
       value: String,
-      icon: String
+      icon: String,
+      error: String
     },
     methods: {
       input(e) {
         if (e.target.value !== this.value) {
           this.$emit("input", e.target.value);
         }
-      }
+      },
+      onChanged(e) {
+        // change イベントを発火し、パラメータとして入力値を送信する
+        this.$emit("change", e.target.value);
+      },
     }
   };
 </script>
