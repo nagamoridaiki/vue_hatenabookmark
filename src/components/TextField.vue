@@ -38,7 +38,7 @@
       placeholder: String,
       value: String,
       icon: String,
-      error: String
+      error: String,
     },
     methods: {
       input(e) {
